@@ -16,32 +16,28 @@
       color: green;
     }
     .container {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
       gap: 20px;
       max-width: 1200px;
       margin: auto;
-    }
-    .row {
-      display: flex;
-      justify-content: center;
-      gap: 20px;
-      width: 100%;
     }
     .candidate {
       background: rgba(255, 255, 255, 0.85);
       padding: 10px;
       border-radius: 10px;
       box-shadow: 0 0 10px rgba(0,0,0,0.1);
-      width: 150px;
-      text-align: center;
+      width: 100%;
+      min-height: 180px;
+      display: flex;
+      align-items: flex-end;
+      justify-content: center;
     }
     .vote-number {
-      margin-top: 4px;
-      font-size: 20px;
+      font-size: 24px;
       font-weight: bold;
       color: red;
+      margin-bottom: 10px;
     }
     #chart-container {
       margin-top: 40px;
@@ -50,36 +46,28 @@
       margin-left: auto;
       margin-right: auto;
     }
+    @media (max-width: 768px) {
+      .container {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+    @media (max-width: 480px) {
+      .container {
+        grid-template-columns: 1fr;
+      }
+    }
   </style>
 </head>
 <body>
   <h1>KẾT QUẢ BẦU CỬ BAN HÀNH GIÁO KHÓA XIII (2025-2029)</h1>
   <div class="container">
-    <div class="row">
-      <div class="candidate">
-        <div class="vote-number" id="num-0">0</div>
-      </div>
-      <div class="candidate">
-        <div class="vote-number" id="num-1">0</div>
-      </div>
-      <div class="candidate">
-        <div class="vote-number" id="num-2">0</div>
-      </div>
-    </div>
-    <div class="row">
-      <div class="candidate">
-        <div class="vote-number" id="num-3">0</div>
-      </div>
-      <div class="candidate">
-        <div class="vote-number" id="num-4">0</div>
-      </div>
-      <div class="candidate">
-        <div class="vote-number" id="num-5">0</div>
-      </div>
-      <div class="candidate">
-        <div class="vote-number" id="num-6">0</div>
-      </div>
-    </div>
+    <div class="candidate"><div class="vote-number" id="num-0">0</div></div>
+    <div class="candidate"><div class="vote-number" id="num-1">0</div></div>
+    <div class="candidate"><div class="vote-number" id="num-2">0</div></div>
+    <div class="candidate"><div class="vote-number" id="num-3">0</div></div>
+    <div class="candidate"><div class="vote-number" id="num-4">0</div></div>
+    <div class="candidate"><div class="vote-number" id="num-5">0</div></div>
+    <div class="candidate"><div class="vote-number" id="num-6">0</div></div>
   </div>
   <div id="chart-container">
     <canvas id="voteChart"></canvas>
