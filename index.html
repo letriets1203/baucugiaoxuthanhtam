@@ -175,17 +175,13 @@
       return { labels, data };
     }
 
-     function animateCount(id, start, end, duration = 1000) {
+     function animateCount(id, start, end) {
   const el = document.getElementById(id);
-  el.classList.add('odometer');
+  if (!el.classList.contains('odometer')) {
+    el.classList.add('odometer');
+  }
   el.innerHTML = end;
-} else {
-          el.style.transform = 'scale(1)';
-        }
-      }
-
-      requestAnimationFrame(update);
-    }
+}
 
     async function renderChart() {
       const { labels, data } = await fetchData();
