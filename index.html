@@ -163,6 +163,8 @@
       document.getElementById("voteChart").remove();
       const canvas = document.createElement("canvas");
       canvas.id = "voteChart";
+      canvas.removeAttribute("width");
+      canvas.removeAttribute("height");
       document.getElementById("chart-container").appendChild(canvas);
       renderChart();
     }, 10000);
