@@ -34,6 +34,7 @@
       border-radius: 10px;
       box-shadow: 0 0 10px rgba(0,0,0,0.1);
       width: 150px;
+      position: relative;
     }
     .candidate img {
       width: 100%;
@@ -44,6 +45,14 @@
       margin-top: 5px;
       font-weight: bold;
       font-size: 14px;
+    }
+    .vote-number {
+      position: absolute;
+      bottom: 10px;
+      right: 10px;
+      font-size: 20px;
+      font-weight: bold;
+      color: red;
     }
     #chart-container {
       margin-top: 40px;
@@ -61,32 +70,39 @@
       <div class="candidate">
         <img src="giuse_nguyen_van_duc.png" alt="Giuse Nguyễn Văn Đức">
         <div class="candidate-name">Giuse Nguyễn Văn Đức</div>
+        <div class="vote-number" id="num-0"></div>
       </div>
       <div class="candidate">
         <img src="giuse_nguyen_quoc_hung.png" alt="Giuse Nguyễn Quốc Hùng">
         <div class="candidate-name">Giuse Nguyễn Quốc Hùng</div>
+        <div class="vote-number" id="num-1"></div>
       </div>
       <div class="candidate">
         <img src="phero_bui_quoc_duc.png" alt="Phêrô Bùi Quốc Đức">
         <div class="candidate-name">Phêrô Bùi Quốc Đức</div>
+        <div class="vote-number" id="num-2"></div>
       </div>
     </div>
     <div class="row">
       <div class="candidate">
         <img src="phero_nguyen_ngoc_oanh.png" alt="Phêrô Nguyễn Ngọc Oanh">
         <div class="candidate-name">Phêrô Nguyễn Ngọc Oanh</div>
+        <div class="vote-number" id="num-3"></div>
       </div>
       <div class="candidate">
         <img src="giuse_pham_huu_hoang.png" alt="Giuse Phạm Hữu Hoàng">
         <div class="candidate-name">Giuse Phạm Hữu Hoàng</div>
+        <div class="vote-number" id="num-4"></div>
       </div>
       <div class="candidate">
         <img src="fx_nguyen_huy_trung.png" alt="FX. Nguyễn Huy Trung">
         <div class="candidate-name">FX. Nguyễn Huy Trung</div>
+        <div class="vote-number" id="num-5"></div>
       </div>
       <div class="candidate">
         <img src="matthieu_vu_hoang_long.png" alt="Matthêu Vũ Hoàng Long">
         <div class="candidate-name">Matthêu Vũ Hoàng Long</div>
+        <div class="vote-number" id="num-6"></div>
       </div>
     </div>
   </div>
@@ -103,7 +119,7 @@
       const res = await fetch(url);
       const text = await res.text();
       const json = JSON.parse(text.substr(47).slice(0, -2));
-      const row = json.table.rows[1];
+      const row = json.table.rows[0];
       const data = row.c.slice(0, 7).map(cell => cell ? cell.v : 0);
 
       const labels = [
@@ -121,6 +137,11 @@
 
     async function renderChart() {
       const { labels, data } = await fetchData();
+
+      data.forEach((val, idx) => {
+        const el = document.getElementById(`num-${idx}`);
+        if (el) el.innerText = val;
+      });
 
       new Chart(document.getElementById("voteChart"), {
         type: "bar",
