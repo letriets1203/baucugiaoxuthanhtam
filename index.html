@@ -152,7 +152,7 @@
       const res = await fetch(url);
       const text = await res.text();
       const json = JSON.parse(text.substr(47).slice(0, -2));
-      const row = json.table.rows[0];
+      const row = json.table.rows[2];
       const data = row.c.slice(1, 8).map(cell => cell ? cell.v : 0);
 
       const labels = [
