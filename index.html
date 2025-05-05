@@ -189,7 +189,7 @@
       requestAnimationFrame(update);
     }
 
-    async function renderChart() {
+     async function renderChart() {
       const { labels, data } = await fetchData();
 
       data.forEach((val, idx) => {
@@ -199,46 +199,42 @@
         }
       });
 
-      new Chart(document.getElementById("voteChart"), {
-        type: "bar",
-        data: {
-          labels,
-          datasets: [{
-            label: "Số phiếu",
-            data: currentVotes,
-            backgroundColor: [
-              'rgba(54, 162, 235, 0.7)',
-              'rgba(255, 206, 86, 0.7)',
-              'rgba(75, 192, 192, 0.7)',
-              'rgba(153, 102, 255, 0.7)',
-              'rgba(255, 159, 64, 0.7)',
-              'rgba(0, 128, 0, 0.7)',
-              'rgba(128, 0, 128, 0.7)'
-            ]
-          }]
-        },
-        options: {
-          responsive: true,
-          animation: false,
-          scales: {
-            y: {
-              beginAtZero: true
+      if (window.myChart) {
+        window.myChart.data.datasets[0].data = currentVotes;
+        window.myChart.update();
+      } else {
+        window.myChart = new Chart(document.getElementById("voteChart"), {
+          type: "bar",
+          data: {
+            labels,
+            datasets: [{
+              label: "Số phiếu",
+              data: currentVotes,
+              backgroundColor: [
+                'rgba(54, 162, 235, 0.7)',
+                'rgba(255, 206, 86, 0.7)',
+                'rgba(75, 192, 192, 0.7)',
+                'rgba(153, 102, 255, 0.7)',
+                'rgba(255, 159, 64, 0.7)',
+                'rgba(0, 128, 0, 0.7)',
+                'rgba(128, 0, 128, 0.7)'
+              ]
+            }]
+          },
+          options: {
+            responsive: true,
+            animation: false,
+            scales: {
+              y: {
+                beginAtZero: true
+              }
             }
           }
-        }
-      });
+        });
+      }
     }
 
-    renderChart();
-    setInterval(() => {
-      document.getElementById("voteChart").remove();
-      const canvas = document.createElement("canvas");
-      canvas.id = "voteChart";
-      canvas.removeAttribute("width");
-      canvas.removeAttribute("height");
-      document.getElementById("chart-container").appendChild(canvas);
-      renderChart();
-    }, 10000);
+    
   </script>
 </body>
 </html>
