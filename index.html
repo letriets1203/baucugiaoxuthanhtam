@@ -53,17 +53,18 @@
       font-size: 20px;
       font-weight: bold;
       color: red;
-      animation: count-up 1s ease-in-out;
     }
-    @keyframes count-up {
-      0% {
-        transform: translateY(10px);
-        opacity: 0;
-      }
-      100% {
-        transform: translateY(0);
-        opacity: 1;
-      }
+    .counter::before {
+      content: "0";
+      display: inline-block;
+    }
+    .counter.animate::before {
+      animation: counter 1s ease-in-out forwards;
+    }
+    @keyframes counter {
+      0% { content: "0"; opacity: 0; transform: translateY(10px); }
+      50% { opacity: 1; transform: translateY(0); }
+      100% { content: attr(data-value); opacity: 1; transform: translateY(0); }
     }
     #chart-container {
       margin-top: 40px;
@@ -81,39 +82,39 @@
       <div class="candidate">
         <img src="giuse_nguyen_van_duc.png" alt="Giuse Nguyễn Văn Đức">
         <div class="candidate-name">Giuse Nguyễn Văn Đức</div>
-        <div class="vote-number" id="num-0"></div>
+        <div class="vote-number counter" id="num-0"></div>
       </div>
       <div class="candidate">
         <img src="giuse_nguyen_quoc_hung.png" alt="Giuse Nguyễn Quốc Hùng">
         <div class="candidate-name">Giuse Nguyễn Quốc Hùng</div>
-        <div class="vote-number" id="num-1"></div>
+        <div class="vote-number counter" id="num-1"></div>
       </div>
       <div class="candidate">
         <img src="phero_bui_quoc_duc.png" alt="Phêrô Bùi Quốc Đức">
         <div class="candidate-name">Phêrô Bùi Quốc Đức</div>
-        <div class="vote-number" id="num-2"></div>
+        <div class="vote-number counter" id="num-2"></div>
       </div>
     </div>
     <div class="row">
       <div class="candidate">
         <img src="phero_nguyen_ngoc_oanh.png" alt="Phêrô Nguyễn Ngọc Oanh">
         <div class="candidate-name">Phêrô Nguyễn Ngọc Oanh</div>
-        <div class="vote-number" id="num-3"></div>
+        <div class="vote-number counter" id="num-3"></div>
       </div>
       <div class="candidate">
         <img src="giuse_pham_huu_hoang.png" alt="Giuse Phạm Hữu Hoàng">
         <div class="candidate-name">Giuse Phạm Hữu Hoàng</div>
-        <div class="vote-number" id="num-4"></div>
+        <div class="vote-number counter" id="num-4"></div>
       </div>
       <div class="candidate">
         <img src="fx_nguyen_huy_trung.png" alt="FX. Nguyễn Huy Trung">
         <div class="candidate-name">FX. Nguyễn Huy Trung</div>
-        <div class="vote-number" id="num-5"></div>
+        <div class="vote-number counter" id="num-5"></div>
       </div>
       <div class="candidate">
         <img src="matthieu_vu_hoang_long.png" alt="Matthêu Vũ Hoàng Long">
         <div class="candidate-name">Matthêu Vũ Hoàng Long</div>
-        <div class="vote-number" id="num-6"></div>
+        <div class="vote-number counter" id="num-6"></div>
       </div>
     </div>
   </div>
@@ -146,23 +147,14 @@
       return { labels, data };
     }
 
-    function animateCount(id, endValue, duration = 1000) {
-      const el = document.getElementById(id);
-      let startValue = 0;
-      const stepTime = Math.abs(Math.floor(duration / endValue));
-      const increment = endValue > startValue ? 1 : -1;
-      const timer = setInterval(() => {
-        startValue += increment;
-        el.innerText = startValue;
-        if (startValue === endValue) clearInterval(timer);
-      }, stepTime);
-    }
-
     async function renderChart() {
       const { labels, data } = await fetchData();
 
       data.forEach((val, idx) => {
-        animateCount(`num-${idx}`, val);
+        const el = document.getElementById(`num-${idx}`);
+        el.setAttribute("data-value", val);
+        el.classList.add("animate");
+        el.textContent = val; // fallback nếu CSS không chạy
       });
 
       new Chart(document.getElementById("voteChart"), {
