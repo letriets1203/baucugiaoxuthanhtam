@@ -22,13 +22,27 @@
       margin: auto;
     }
     .container {
-      max-width: 1085px;
-        padding-left: 40px;
-      padding-top: 204px;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
       gap: 20px;
       flex: 1;
+      padding-top: 204px;
+    }
+    .container1 {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 20px;
+      flex: 1;
+      padding-top: 204px;
     }
     .candidate {
+      padding: 10px;
+      width: 100%;
+      height: 180px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }.candidate1 {
       padding: 10px;
       width: 100%;
       height: 180px;
@@ -73,7 +87,9 @@
     <div class="container">
       <div class="candidate"><div class="vote-number" id="num-0">0</div></div>
       <div class="candidate"><div class="vote-number" id="num-1">0</div></div>
-      <div class="candidate"><div class="vote-number" id="num-2">0</div></div>
+      <div class="candidate"><div class="vote-number" id="num-2">0</div></div>\
+    </div>
+      <div class="container1">
       <div class="candidate"><div class="vote-number" id="num-3">0</div></div>
       <div class="candidate"><div class="vote-number" id="num-4">0</div></div>
       <div class="candidate"><div class="vote-number" id="num-5">0</div></div>
