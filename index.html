@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <title>Kết quả Bầu cử Ban Hành Giáo</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.0/chart.umd.min.js"></script>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f8f8f8;
+      padding: 20px;
+      text-align: center;
+    }
+    h1 {
+      color: green;
+    }
+    .container {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 20px;
+      max-width: 1200px;
+      margin: auto;
+    }
+    .row {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      width: 100%;
+    }
+    .candidate {
+      background: white;
+      padding: 10px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+      width: 150px;
+    }
+    .candidate img {
+      width: 100%;
+      height: auto;
+      border-radius: 8px;
+    }
+    .candidate-name {
+      margin-top: 5px;
+      font-weight: bold;
+      font-size: 14px;
+    }
+    #chart-container {
+      margin-top: 40px;
+      width: 90%;
+      max-width: 800px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+  </style>
+</head>
+<body>
+  <h1>KẾT QUẢ BẦU CỬ BAN HÀNH GIÁO KHÓA XIII (2025-2029)</h1>
+  <div class="container">
+    <div class="row">
+      <div class="candidate">
+        <img src="giuse_nguyen_van_duc.png" alt="Giuse Nguyễn Văn Đức">
+        <div class="candidate-name">Giuse Nguyễn Văn Đức</div>
+      </div>
+      <div class="candidate">
+        <img src="giuse_nguyen_quoc_hung.png" alt="Giuse Nguyễn Quốc Hùng">
+        <div class="candidate-name">Giuse Nguyễn Quốc Hùng</div>
+      </div>
+      <div class="candidate">
+        <img src="phero_bui_quoc_duc.png" alt="Phêrô Bùi Quốc Đức">
+        <div class="candidate-name">Phêrô Bùi Quốc Đức</div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="candidate">
+        <img src="phero_nguyen_ngoc_oanh.png" alt="Phêrô Nguyễn Ngọc Oanh">
+        <div class="candidate-name">Phêrô Nguyễn Ngọc Oanh</div>
+      </div>
+      <div class="candidate">
+        <img src="giuse_pham_huu_hoang.png" alt="Giuse Phạm Hữu Hoàng">
+        <div class="candidate-name">Giuse Phạm Hữu Hoàng</div>
+      </div>
+      <div class="candidate">
+        <img src="fx_nguyen_huy_trung.png" alt="FX. Nguyễn Huy Trung">
+        <div class="candidate-name">FX. Nguyễn Huy Trung</div>
+      </div>
+      <div class="candidate">
+        <img src="matthieu_vu_hoang_long.png" alt="Matthêu Vũ Hoàng Long">
+        <div class="candidate-name">Matthêu Vũ Hoàng Long</div>
+      </div>
+    </div>
+  </div>
+  <div id="chart-container">
+    <canvas id="voteChart"></canvas>
+  </div>
+
+  <script>
+    const sheetID = '1XsQ_v_hOK_K4KRk8GapoS7E3VXr_aUSOx616-ps-Eec';
+    const sheetName = 'Sheet1';
+    const url = `https://docs.google.com/spreadsheets/d/${sheetID}/gviz/tq?sheet=${sheetName}`;
+
+    async function fetchData() {
+      const res = await fetch(url);
+      const text = await res.text();
+      const json = JSON.parse(text.substr(47).slice(0, -2));
+      const row = json.table.rows[1];
+      const data = row.c.slice(0, 7).map(cell => cell ? cell.v : 0);
+
+      const labels = [
+        "Giuse Nguyễn Văn Đức",
+        "Giuse Nguyễn Quốc Hùng",
+        "Phêrô Bùi Quốc Đức",
+        "Phêrô Nguyễn Ngọc Oanh",
+        "Giuse Phạm Hữu Hoàng",
+        "FX. Nguyễn Huy Trung",
+        "Matthêu Vũ Hoàng Long"
+      ];
+
+      return { labels, data };
+    }
+
+    async function renderChart() {
+      const { labels, data } = await fetchData();
+
+      new Chart(document.getElementById("voteChart"), {
+        type: "bar",
+        data: {
+          labels,
+          datasets: [{
+            label: "Số phiếu",
+            data,
+            backgroundColor: "rgba(75, 192, 192, 0.6)"
+          }]
+        },
+        options: {
+          responsive: true,
+          animation: false,
+          scales: {
+            y: {
+              beginAtZero: true
+            }
+          }
+        }
+      });
+    }
+
+    renderChart();
+    setInterval(() => {
+      document.getElementById("voteChart").remove();
+      const canvas = document.createElement("canvas");
+      canvas.id = "voteChart";
+      document.getElementById("chart-container").appendChild(canvas);
+      renderChart();
+    }, 10000);
+  </script>
+</body>
+</html>
