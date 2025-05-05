@@ -53,6 +53,17 @@
       font-size: 20px;
       font-weight: bold;
       color: red;
+      animation: count-up 1s ease-in-out;
+    }
+    @keyframes count-up {
+      0% {
+        transform: translateY(10px);
+        opacity: 0;
+      }
+      100% {
+        transform: translateY(0);
+        opacity: 1;
+      }
     }
     #chart-container {
       margin-top: 40px;
