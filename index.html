@@ -145,7 +145,7 @@
     const sheetID = '1XsQ_v_hOK_K4KRk8GapoS7E3VXr_aUSOx616-ps-Eec';
     const sheetName = 'Sheet1';
     const url = `https://docs.google.com/spreadsheets/d/${sheetID}/gviz/tq?sheet=${sheetName}`;
-    
+
     let currentVotes = [0, 0, 0, 0, 0, 0, 0];
 
     async function fetchData() {
@@ -186,10 +186,11 @@
           el.style.transform = 'scale(1)';
         }
       }
+
       requestAnimationFrame(update);
     }
 
-     async function renderChart() {
+    async function renderChart() {
       const { labels, data } = await fetchData();
 
       data.forEach((val, idx) => {
@@ -234,7 +235,23 @@
       }
     }
 
-    
+    renderChart();
+
+    setInterval(() => {
+      fetchData().then(({ labels, data }) => {
+        data.forEach((val, idx) => {
+          if (val !== currentVotes[idx]) {
+            animateCount(`num-${idx}`, currentVotes[idx], val);
+            currentVotes[idx] = val;
+          }
+        });
+
+        if (window.myChart) {
+          window.myChart.data.datasets[0].data = currentVotes;
+          window.myChart.update();
+        }
+      });
+    }, 10000);
   </script>
 </body>
 </html>
