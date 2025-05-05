@@ -135,12 +135,23 @@
       return { labels, data };
     }
 
+    function animateCount(id, endValue, duration = 1000) {
+      const el = document.getElementById(id);
+      let startValue = 0;
+      const stepTime = Math.abs(Math.floor(duration / endValue));
+      const increment = endValue > startValue ? 1 : -1;
+      const timer = setInterval(() => {
+        startValue += increment;
+        el.innerText = startValue;
+        if (startValue === endValue) clearInterval(timer);
+      }, stepTime);
+    }
+
     async function renderChart() {
       const { labels, data } = await fetchData();
 
       data.forEach((val, idx) => {
-        const el = document.getElementById(`num-${idx}`);
-        if (el) el.innerText = val;
+        animateCount(`num-${idx}`, val);
       });
 
       new Chart(document.getElementById("voteChart"), {
