@@ -175,11 +175,8 @@
       return { labels, data };
     }
 
-     function animateCount(id, start, end) {
+    function animateCount(id, start, end) {
   const el = document.getElementById(id);
-  if (!el.classList.contains('odometer')) {
-    el.classList.add('odometer');
-  }
   el.innerHTML = end;
 }
 
