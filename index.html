@@ -153,7 +153,7 @@
       const text = await res.text();
       const json = JSON.parse(text.substr(47).slice(0, -2));
       const row = json.table.rows[0];
-      const data = row.c.slice(0, 7).map(cell => cell ? cell.v : 0);
+      const data = row.c.slice(1, 8).map(cell => cell ? cell.v : 0);
 
       const labels = [
         "Giuse Nguyễn Văn Đức",
