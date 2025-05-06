@@ -206,15 +206,15 @@
   const el = document.getElementById(id);
 
   // Đảm bảo cập nhật giá trị với dấu chấm thay vì dấu phẩy
-  el.innerHTML = end.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.');
-
-  // Sử dụng odometer để cập nhật giá trị
+  el.innerHTML = end.toLocaleString('en-US').replace(/,/g, '.');
+  
+  // Nếu bạn cần sử dụng odometer, cập nhật lại giá trị cho odometer
   const odometerInstance = new Odometer({
     el: el,
     value: end,
   });
-  
-  // Cập nhật lại số sau khi đã thay đổi dấu phân cách
+
+  // Cập nhật lại số cho odometer
   odometerInstance.update(end);
 }
 
