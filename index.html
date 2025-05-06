@@ -204,19 +204,7 @@
 
     function animateCount(id, start, end) {
   const el = document.getElementById(id);
-
-  // Đảm bảo cập nhật giá trị với dấu chấm thay vì dấu phẩy
   el.innerHTML = end;
-  
-  // Nếu bạn cần sử dụng odometer, cập nhật lại giá trị cho odometer
-  const odometerInstance = new Odometer({
-    el: el,
-    value: 333555,
-    format: '(.ddd),dd', // Định dạng sử dụng dấu phẩy như mặc định, có thể điều chỉnh thêm nếu cần
-  });
-
-  // Cập nhật lại số cho odometer
-  odometerInstance.update(end);
 }
 
     async function renderChart() {
