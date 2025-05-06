@@ -204,7 +204,8 @@
 
     function animateCount(id, start, end) {
   const el = document.getElementById(id);
-  el.innerHTML = end.toLocaleString('vi-VN').replace(/,/g, '.');;
+  // Cập nhật giá trị và thay thế dấu ',' thành '.'
+  el.innerHTML = end.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.');
 }
 
     async function renderChart() {
