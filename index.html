@@ -237,8 +237,7 @@
         window.myChart.update();
       } else {
         window.myChart = new Chart(document.getElementById("voteChart"), {
-          type: "bar",
-          
+          type: "bar",         
           data: {
             labels,
             datasets: [{
@@ -260,6 +259,11 @@
               duration: 1000,
               easing: 'easeOutQuart'
             },
+            plugins: {
+    legend: {
+      display: false // Ẩn nhãn chú thích
+    }
+  },
             scales: {
               y: {
                 beginAtZero: true
