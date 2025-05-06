@@ -206,7 +206,7 @@
   const el = document.getElementById(id);
 
   // Đảm bảo cập nhật giá trị với dấu chấm thay vì dấu phẩy
-  el.innerHTML = end.toLocaleString('vi-VN').replace(/,/g, '.');
+  el.innerHTML = end;
   
   // Nếu bạn cần sử dụng odometer, cập nhật lại giá trị cho odometer
   const odometerInstance = new Odometer({
