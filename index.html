@@ -3,6 +3,15 @@
 <head>
   <meta charset="UTF-8">
   <title>Kết quả Bầu cử Ban Hành Giáo - Giáo xứ Thánh Tâm</title>
+  <script>
+  window.odometerOptions = {
+    auto: false, // Không tự động khởi tạo odometer cho các phần tử có class 'odometer'
+    selector: '.vote-number', // Class để chọn các phần tử cần animate
+    format: '(.ddd),dd', // Định dạng số: dấu phẩy chia nhóm, 2 số thập phân
+    duration: 3000, // Thời gian chạy hiệu ứng (ms)
+    animation: 'count' // Kiểu animation đơn giản
+  };
+</script>
       <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/odometer.js/0.4.8/themes/odometer-theme-default.min.css">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/odometer.js/0.4.8/odometer.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.0/chart.umd.min.js"></script>
@@ -205,6 +214,16 @@
     function animateCount(id, start, end) {
   const el = document.getElementById(id);
   el.innerHTML = end;
+      // Tạo instance Odometer nếu chưa có
+  if (!el.odometer) {
+    el.odometer = new Odometer({
+      el: el,
+      value: start
+    });
+  }
+
+  // Cập nhật giá trị
+  el.odometer.update(end);
 }
 
     async function renderChart() {
