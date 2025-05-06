@@ -204,8 +204,17 @@
 
     function animateCount(id, start, end) {
   const el = document.getElementById(id);
-  // Cập nhật giá trị và thay thế dấu ',' thành '.'
+
+  // Cập nhật số và thay dấu ',' thành dấu '.'
   el.innerHTML = end.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.');
+  
+  // Thêm cập nhật lại số cho odometer
+  const odometerInstance = new Odometer({
+    el: el,
+    value: end,
+  });
+  
+  odometerInstance.update(end);
 }
 
     async function renderChart() {
