@@ -205,15 +205,16 @@
     function animateCount(id, start, end) {
   const el = document.getElementById(id);
 
-  // Cập nhật số và thay dấu ',' thành dấu '.'
+  // Đảm bảo cập nhật giá trị với dấu chấm thay vì dấu phẩy
   el.innerHTML = end.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.');
-  
-  // Thêm cập nhật lại số cho odometer
+
+  // Sử dụng odometer để cập nhật giá trị
   const odometerInstance = new Odometer({
     el: el,
     value: end,
   });
   
+  // Cập nhật lại số sau khi đã thay đổi dấu phân cách
   odometerInstance.update(end);
 }
 
