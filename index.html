@@ -132,8 +132,14 @@
     max-width: 652px;
     max-height: 355px;
     }
+    @font-face {
+  font-family: 'Anton';
+  src: url('./Anton.ttf') format('ttf');
+  font-weight: normal;
+  font-style: normal;
+}
   .odometer{
-font-family: 'Courier New', monospace;
+  font-family: 'Anton', sans-serif;
   font-size: 40px;
   font-weight: bold;
   color: red;
@@ -141,7 +147,6 @@ font-family: 'Courier New', monospace;
   border-radius: 6px;
   display: inline-block;
   letter-spacing: 4px;
-  box-shadow: 2px 2px 4px rgba(0,0,0,0.2);
   }
     canvas {
       width: 100% !important;
