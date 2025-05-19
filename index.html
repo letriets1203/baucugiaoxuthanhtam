@@ -155,7 +155,6 @@
           <div class="candidate_pham_huu_hoang"><div class="vote-number odometer" id="num-3">0</div></div>
           <div class="candidate_vu_hoang_long"><div class="vote-number odometer" id="num-4">0</div></div>
           <div class="candidate_nguyen_ngoc_oanh"><div class="vote-number odometer" id="num-5">0</div></div>
-          <div class="candidate_nguyen_huy_trung"><div class="vote-number odometer" id="num-6">0</div></div>
         </div>
       </div>
       <div class="container_big_chart">
@@ -169,23 +168,22 @@
     const sheetName = 'Sheet1';
     const url = `https://docs.google.com/spreadsheets/d/${sheetID}/gviz/tq?sheet=${sheetName}`;
 
-    let currentVotes = [0, 0, 0, 0, 0, 0, 0];
+    let currentVotes = [0, 0, 0, 0, 0, 0];
 
     async function fetchData() {
       const res = await fetch(url);
       const text = await res.text();
       const json = JSON.parse(text.substr(47).slice(0, -2));
       const row = json.table.rows[1];
-      const data = row.c.slice(1, 8).map(cell => cell ? cell.v : 0);
+      const data = row.c.slice(2, 8).map(cell => cell ? cell.v : 0);
 
       const labels = [
-        "DucNV",
-        "DucBQ",
-        "HungNQ",
-        "HoangPH",
-        "LongVH",
-        "OanhNN",
-        "TrungNH"
+        "HIẾU",
+        "HIỂN",
+        "THÀNH",
+        "HIỆU",
+        "KHỞI",
+        "TÍN",
       ];
 
       return { labels, data };
@@ -233,7 +231,6 @@
                 'rgba(153, 102, 255, 0.7)',
                 'rgba(255, 159, 64, 0.7)',
                 'rgba(0, 128, 0, 0.7)',
-                'rgba(128, 0, 128, 0.7)'
               ]
             }]
           },
